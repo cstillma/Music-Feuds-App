@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using API.Services;
 
 namespace API.Controllers
 {
@@ -8,32 +9,18 @@ namespace API.Controllers
     public class FeudsController : ControllerBase
     {
         private readonly MyDbContext _context;
+        private readonly IFeudsServices _feudsServices;        
 
-        public FeudsController(MyDbContext context)
+        public FeudsController(MyDbContext context, IFeudsServices feudsServices)
         {
             _context = context;
+            _feudsServices = feudsServices;
         }
 
         [HttpGet("/ui/{id}")]
         public async Task<FeudUI> GetFeudForUser(int id)
         {
-            Feud feud = await _context.Feuds.FindAsync(id);
-            // make a list of song ids from the string of song ids
-            var songIds = feud.FeudSongs.Split(',');
-
-            //convert each song id from a string to an int
-            var songIdsInt = songIds.Select(s => int.Parse(s)).ToList();
-
-            IEnumerable<Song> songs = await _context.Songs.Where(s => songIdsInt.Contains(s.Id)).ToListAsync();
-
-            FeudUI feudUI = new FeudUI
-            {
-                Id = feud.Id,
-                FeudName = feud.FeudName,
-                FeudSongs = songs.ToList()
-            };
-            return feudUI;
-
+            return await _feudsServices.GetFeudByIdAsync(id);
         }
 
         [HttpGet]
