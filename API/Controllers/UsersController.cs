@@ -5,48 +5,48 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SongsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly MyDbContext _context;
 
-        public SongsController(MyDbContext context)
+        public UsersController(MyDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Song>> Get()
+        public async Task<IEnumerable<User>> Get()
         {
-            return await _context.Songs.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<Song> Get(int id)
+        public async Task<User> Get(int id)
         {
-            return await _context.Songs.FindAsync(id);
+            return await _context.Users.FindAsync(id);
         }
 
         [HttpPost]
-        public async Task<Song> Post(Song song)
+        public async Task<User> Post(User user)
         {
-            _context.Songs.Add(song);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return song;
+            return user;
         }
 
         [HttpPut("{id}")]
-        public async Task<Song> Put(int id, Song song)
+        public async Task<User> Put(int id, User user)
         {
-            _context.Entry(song).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return song;
+            return user; 
         }
 
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            var song = await _context.Songs.FindAsync(id);
-            _context.Songs.Remove(song);
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
     }
