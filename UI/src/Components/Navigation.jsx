@@ -6,7 +6,7 @@ function Navigation() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/">CSPB3308_Playlist</Navbar.Brand>
+        <Navbar.Brand href="/">Feuds, Beefs, and Diss Tracks</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

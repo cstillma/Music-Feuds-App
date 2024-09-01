@@ -17,7 +17,7 @@ namespace API.Controllers
             _feudsServices = feudsServices;
         }
 
-        [HttpGet("/ui/{id}")]
+        [HttpGet("ui/{id}")]
         public async Task<FeudUI> GetFeudForUser(int id)
         {
             return await _feudsServices.GetFeudByIdAsync(id);
